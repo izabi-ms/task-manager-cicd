@@ -1,0 +1,41 @@
+version: "3.8"
+
+services:
+
+  frontend:
+    image: ghcr.io/izabi-ms/task-manager-frontend:latest
+    container_name: task-manager-frontend-prod
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
+
+  backend:
+    image: ghcr.io/izabi-ms/task-manager-backend:latest
+    container_name: task-manager-backend-prod
+    ports:
+      - "5000:5000"
+
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
+
+    depends_on:
+      - db
+
+
+  db:
+    image: postgres:16-alpine
+    container_name: task-manager-db-prod
+
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+
+volumes:
+  postgres_data:
