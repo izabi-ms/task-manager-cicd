@@ -2,6 +2,20 @@
   "name": "task-manager-backend",
   "version": "1.0.0",
   "type": "module",
-  "scripts": {"dev": "node --watch src/server.js", "start": "node src/server.js"},
-  "dependencies": {"cors": "^2.8.5", "dotenv": "^16.4.7", "express": "^4.21.2", "pg": "^8.13.1"}
+  "scripts": {
+    "dev": "node src/server.js",
+    "start": "nodemon src/server.js",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "pg": "^8.13.1"
+  },
+  "devDependencies": {
+    "@types/jest": "^30.0.0",
+    "jest": "^30.5.1",
+    "supertest": "^7.2.2"
+  }
 }
