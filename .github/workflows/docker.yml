@@ -1,29 +1,85 @@
 name: Docker Build
 
+
 on:
+
   push:
+
     branches:
       - main
 
+
+
 jobs:
+
+
   docker-build:
+
+
     runs-on: ubuntu-latest
 
+
     permissions:
+
       contents: read
+      packages: write
+
 
     steps:
+
+
       - name: Checkout Code
+
         uses: actions/checkout@v4
 
+
+
+      - name: Login to GHCR
+
+        uses: docker/login-action@v3
+
+        with:
+
+          registry: ghcr.io
+
+          username: ${{ github.actor }}
+
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+
+
       - name: Build Backend Image
+
         run: |
+
           docker build \
-            -t task-manager-backend \
-            ./backend
+          -t ghcr.io/${{ github.repository_owner }}/task-manager-backend:latest \
+          ./backend
+
+
 
       - name: Build Frontend Image
+
         run: |
+
           docker build \
-            -t task-manager-frontend \
-            ./frontend
+          -t ghcr.io/${{ github.repository_owner }}/task-manager-frontend:latest \
+          ./frontend
+
+
+
+      - name: Push Backend Image
+
+        run: |
+
+          docker push \
+          ghcr.io/${{ github.repository_owner }}/task-manager-backend:latest
+
+
+
+      - name: Push Frontend Image
+
+        run: |
+
+          docker push \
+          ghcr.io/${{ github.repository_owner }}/task-manager-frontend:latest
