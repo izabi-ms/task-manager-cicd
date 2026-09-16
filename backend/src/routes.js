@@ -4,7 +4,11 @@ import { validateTask, VALID_STATUSES } from './validation.js';
 
 const router = Router();
 
-router.get('/health', (_req, res) => res.json({ status: 'ok' }));
+router.get('/health', (_req, res) => {
+  res.status(200).json({
+    status: "OK"
+  });
+});
 
 router.get('/tasks', async (_req, res, next) => {
   try {
