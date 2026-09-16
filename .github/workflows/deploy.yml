@@ -1,0 +1,37 @@
+name: Deploy Application
+
+on:
+  workflow_run:
+    workflows:
+      - Docker Build
+    types:
+      - completed
+
+jobs:
+
+  deploy:
+
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+
+    runs-on: self-hosted
+
+    steps:
+
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+
+      - name: Pull Latest Images
+        run: |
+          docker compose -f docker-compose.prod.yml pull
+
+
+      - name: Restart Application
+        run: |
+          docker compose -f docker-compose.prod.yml down
+          docker compose -f docker-compose.prod.yml up -d
+
+
+      - name: Verify Containers
+        run: |
+          docker ps
