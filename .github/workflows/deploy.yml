@@ -26,9 +26,15 @@ jobs:
           docker compose -f docker-compose.prod.yml pull
 
 
-      - name: Restart Application
+      - name: Deploy Application
+        env:
+          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+          POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+
         run: |
-          docker compose -f docker-compose.prod.yml down
+          docker compose -f docker-compose.prod.yml down --remove-orphans
           docker compose -f docker-compose.prod.yml up -d
 
 
