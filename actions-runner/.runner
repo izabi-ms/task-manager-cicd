@@ -1,0 +1,11 @@
+﻿{
+  "agentId": 21,
+  "agentName": "task-manager-local-runner",
+  "poolId": 1,
+  "poolName": "Default",
+  "serverUrl": "https://pipelinesghubeus15.actions.githubusercontent.com/aL6TKKIDb2d9fb7kyVjnxnbVD2ejeM7dgqhlGQTZqZeIjiXWz3/",
+  "gitHubUrl": "https://github.com/izabi-ms/task-manager-cicd",
+  "workFolder": "_work",
+  "useV2Flow": true,
+  "serverUrlV2": "https://broker.actions.githubusercontent.com/"
+}
