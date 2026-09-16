@@ -1,4 +1,4 @@
-FROM node:20-bookworm-slim AS builder
+FROM node:20-alpine AS builder
 
 WORKDIR /app
 
@@ -7,21 +7,15 @@ COPY package*.json ./
 RUN npm ci --omit=dev
 
 
-FROM node:20-bookworm-slim
+FROM node:20-alpine
 
 WORKDIR /app
 
-RUN apt-get update && \
-    apt-get upgrade -y && \
-    rm -rf /var/lib/apt/lists/*
-
-
 COPY --from=builder /app/node_modules ./node_modules
 
-COPY --from=builder /app/package*.json ./
+COPY package*.json ./
 
 COPY src ./src
-
 
 EXPOSE 5000
 
