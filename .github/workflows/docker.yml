@@ -40,6 +40,7 @@ jobs:
 
           docker build \
           -t ghcr.io/${{ github.repository_owner }}/task-manager-backend:latest \
+          -t ghcr.io/${{ github.repository_owner }}/task-manager-backend:${{ github.sha }} \
           ./backend
 
 
@@ -50,6 +51,7 @@ jobs:
 
           docker build \
           -t ghcr.io/${{ github.repository_owner }}/task-manager-frontend:latest \
+          -t ghcr.io/${{ github.repository_owner }}/task-manager-frontend:${{ github.sha }} \
           ./frontend
 
 
@@ -107,6 +109,9 @@ jobs:
           docker push \
           ghcr.io/${{ github.repository_owner }}/task-manager-backend:latest
 
+          docker push \
+          ghcr.io/${{ github.repository_owner }}/task-manager-backend:${{ github.sha }}
+
 
 
       - name: Push Frontend Image
@@ -115,3 +120,6 @@ jobs:
 
           docker push \
           ghcr.io/${{ github.repository_owner }}/task-manager-frontend:latest
+
+          docker push \
+          ghcr.io/${{ github.repository_owner }}/task-manager-frontend:${{ github.sha }}
